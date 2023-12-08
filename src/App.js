@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Header from "./components/Header";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import UserAddTask from "./components/task/UserAddTask";
+import UserHome from "./components/UserHome";
+import UserEditTask from "./components/task/EditTask";
+import { ToastContainer } from "react-toastify";
+import PrivateRoute from "./privateRoute/PrivateRoute";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header></Header>
+      <ToastContainer></ToastContainer>
+      <section>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route element={<PrivateRoute></PrivateRoute>}>
+            <Route path="/add" element={<UserAddTask />} />
+            <Route path="/userHome" element={<UserHome />} />
+            <Route path="/editTask/:taskId" element={<UserEditTask />} />
+          </Route>
+        </Routes>
+      </section>
     </div>
   );
 }
